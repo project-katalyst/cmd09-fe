@@ -5,6 +5,7 @@ export const paths = {
   },
   home: {
     path: '',
-    getHref: () => '/',
+    getHref: (redirectTo?: string | null | undefined) =>
+      `/${redirectTo ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ''}`,
   },
 } as const;
