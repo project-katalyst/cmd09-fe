@@ -1,17 +1,47 @@
-import { Head } from '@/components/seo';
+import { ContentLayout } from '@/components/layouts/content-layout';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input/input';
+import CardSwap, { Card } from '@/features/url-submit/card-swap';
 
 const HomeRoute = () => {
   return (
     <>
-      <Head description="Welcome to bulletproof react" />
-      <div className="flex h-screen items-center bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-12 text-center sm:px-6 lg:px-8 lg:py-16">
-          <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-            <span className="block">Bulletproof React</span>
-          </h2>
-          <p>Showcasing Best Practices For Building React Applications</p>
+      <ContentLayout title="Home">
+        <div className="relative mt-40 h-[600px] overflow-hidden rounded-xl border">
+          <div className="mx-32 flex h-full items-center">
+            <div className="flex flex-col items-center gap-8">
+              <h1 className="text-3xl font-bold">
+                Descubra quem está interessado na sua empresa!
+              </h1>
+              <Input
+                type="text"
+                placeholder="Digite o nome da empresa"
+                className="bg-input"
+              />
+              <Button className="mt-4">Buscar</Button>
+            </div>
+            <CardSwap
+              cardDistance={60}
+              verticalDistance={70}
+              delay={8000}
+              pauseOnHover={true}
+            >
+              <Card>
+                <h3>Card 1</h3>
+                <p>Your content here</p>
+              </Card>
+              <Card>
+                <h3>Card 2</h3>
+                <p>Your content here</p>
+              </Card>
+              <Card>
+                <h3>Card 3</h3>
+                <p>Your content here</p>
+              </Card>
+            </CardSwap>
+          </div>
         </div>
-      </div>
+      </ContentLayout>
     </>
   );
 };
