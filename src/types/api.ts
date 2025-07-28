@@ -10,3 +10,16 @@ export type BaseEntity = {
 export type Entity<T> = {
   [K in keyof T]: T[K];
 } & BaseEntity;
+
+type Business = {
+  name: string;
+  description: string;
+  logoUrl: string;
+};
+
+export type Ranking = {
+  id: string;
+  url: string;
+  Businessess: Business[];
+  createdAt: number;
+};
