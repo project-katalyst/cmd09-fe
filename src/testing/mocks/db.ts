@@ -2,37 +2,11 @@ import { factory, primaryKey } from '@mswjs/data';
 import { nanoid } from 'nanoid';
 
 const models = {
-  user: {
+  ranking: {
     id: primaryKey(nanoid),
-    firstName: String,
-    lastName: String,
-    email: String,
-    password: String,
-    teamId: String,
-    role: String,
-    bio: String,
-    createdAt: Date.now,
-  },
-  team: {
-    id: primaryKey(nanoid),
-    name: String,
-    description: String,
-    createdAt: Date.now,
-  },
-  discussion: {
-    id: primaryKey(nanoid),
-    title: String,
-    body: String,
-    authorId: String,
-    teamId: String,
-    createdAt: Date.now,
-  },
-  comment: {
-    id: primaryKey(nanoid),
-    body: String,
-    authorId: String,
-    discussionId: String,
-    createdAt: Date.now,
+    url: String,
+    businesses: Array,
+    createdAt: Date,
   },
 };
 

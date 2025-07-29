@@ -8,4 +8,8 @@ export const paths = {
     getHref: (redirectTo?: string | null | undefined) =>
       `/${redirectTo ? `?redirectTo=${encodeURIComponent(redirectTo)}` : ''}`,
   },
+  ranking: {
+    path: 'ranking',
+    getHref: () => '/ranking',
+  },
 } as const;

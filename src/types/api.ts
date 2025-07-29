@@ -20,6 +20,6 @@ type Business = {
 export type Ranking = {
   id: string;
   url: string;
-  Businessess: Business[];
+  businesses: Business[];
   createdAt: number;
 };
