@@ -14,8 +14,8 @@ const HomeRoute = () => {
 
   const createRankingMutation = useCreateRanking({
     mutationConfig: {
-      onSuccess: () => {
-        navigate('/ranking');
+      onSuccess: (data) => {
+        navigate('/ranking', { state: data.businesses });
       },
     },
   });

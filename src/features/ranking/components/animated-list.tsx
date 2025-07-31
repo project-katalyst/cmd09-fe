@@ -8,6 +8,8 @@ import React, {
   UIEvent,
 } from 'react';
 
+import { Business } from '@/types/api';
+
 interface AnimatedItemProps {
   children: ReactNode;
   delay?: number;
@@ -42,8 +44,8 @@ const AnimatedItem: React.FC<AnimatedItemProps> = ({
 };
 
 interface AnimatedListProps {
-  items?: string[];
-  onItemSelect?: (item: string, index: number) => void;
+  items?: Business[];
+  onItemSelect?: (item: Business, index: number) => void;
   showGradients?: boolean;
   enableArrowNavigation?: boolean;
   className?: string;
@@ -53,23 +55,7 @@ interface AnimatedListProps {
 }
 
 const AnimatedList: React.FC<AnimatedListProps> = ({
-  items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-    'Item 6',
-    'Item 7',
-    'Item 8',
-    'Item 9',
-    'Item 10',
-    'Item 11',
-    'Item 12',
-    'Item 13',
-    'Item 14',
-    'Item 15',
-  ],
+  items = [],
   onItemSelect,
   showGradients = true,
   enableArrowNavigation = true,
@@ -176,9 +162,17 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
             }}
           >
             <div
-              className={`h-80 rounded-lg bg-[#111] p-4 ${selectedIndex === index ? 'bg-[#222]' : ''} ${itemClassName}`}
+              className={`flex h-80 gap-8 rounded-lg bg-[#111] p-4 ${selectedIndex === index ? 'bg-[#222]' : ''} ${itemClassName}`}
             >
-              <p className="m-0 text-white">{item}</p>
+              <img
+                alt="Business Logo"
+                className="w-full max-w-80"
+                src={item.logo}
+              />
+              <div className="flex flex-col items-center gap-4">
+                <p className="m-0 text-white">{item.name}</p>
+                <p className="m-0 text-white">{item.description}</p>
+              </div>
             </div>
           </AnimatedItem>
         ))}
