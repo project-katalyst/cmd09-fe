@@ -4,8 +4,6 @@ import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
-import { Spinner } from '../spinner';
-
 const buttonVariants = cva(
   'group relative w-full overflow-hidden rounded-md disabled:cursor-not-allowed disabled:opacity-50',
   {
@@ -65,10 +63,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {isLoading && <Spinner size="sm" className="text-current" />}
         {!isLoading && icon && <span className="mr-2">{icon}</span>}
         <span className="relative z-20 flex items-center justify-center gap-2">
-          {children}
+          {isLoading && 'Carregando...'}
+          {!isLoading && children}
         </span>
       </Comp>
     );
