@@ -7,10 +7,10 @@
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
 
-    --card: 0 0% 100%; 
+    --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
 
-    --popover: 0 0% 100%; 
+    --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
 
     --primary: 240 5.9% 10%;
@@ -38,7 +38,6 @@
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
-  
 
   .dark {
     --background: 240 10% 3.9%;
@@ -92,6 +91,20 @@
   }
 }
 
+@layer components {
+  .text-h1 {
+    font-size: clamp(2rem, 3.18vi + 1.2rem, 3.75rem);
+    line-height: 1.06;
+  }
+
+  .text-title2 {
+    font-size: clamp(1.13rem, 0.23vi + 1.07rem, 1.25rem);
+    line-height: 1.2;
+    letter-spacing: -0.4px;
+    font-weight: 400;
+  }
+}
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
@@ -99,5 +112,6 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
