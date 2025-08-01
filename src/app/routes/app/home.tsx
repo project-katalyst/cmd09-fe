@@ -22,7 +22,7 @@ const HomeRoute = () => {
   return (
     <>
       <ContentLayout title="Home">
-        <div className="mx-auto flex min-h-screen w-full max-w-[1920px] flex-col items-center justify-center md:px-16">
+        <div className="relative mx-auto flex min-h-screen w-full max-w-[1920px] flex-col items-center justify-center overflow-hidden md:px-16">
           <div className="flex w-full max-w-4xl flex-col items-center gap-8">
             <h1 className="text-h1 w-full text-center font-bold tracking-tight">
               Descubra quem está interessado na sua empresa!
