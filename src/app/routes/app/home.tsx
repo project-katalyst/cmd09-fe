@@ -22,55 +22,61 @@ const HomeRoute = () => {
   return (
     <>
       <ContentLayout title="Home">
-        <div className="relative mt-40 h-[600px] overflow-hidden rounded-xl border">
-          <div className="mx-32 flex h-full items-center">
-            <div className="flex flex-col items-center gap-8">
+        <div className="mx-auto flex min-h-screen w-full max-w-[1920px] flex-col items-center justify-center md:px-16">
+          <div className="flex w-full max-w-4xl flex-col items-center gap-8">
+            <h1 className="text-h1 w-full text-center font-bold tracking-tight">
+              Descubra quem está interessado na sua empresa!
+            </h1>
+            <p className="text-title2 mx-auto text-balance text-center">
+              Descubra clientes e parceiros que já demonstram interesse no seu
+              negócio. Insira o nome da sua empresa e explore as oportunidades.
+            </p>
+          </div>
+          <div className="h-[160px] w-full md:h-[220px]">
+            <div className="flex size-full flex-col items-center justify-center">
               <form
-                className="flex flex-col items-center gap-8"
+                className="w-full max-w-md"
                 onSubmit={(e) => {
                   e.preventDefault();
                   createRankingMutation.mutate({ data: { url } });
                 }}
               >
-                <h1 className="text-3xl font-bold">
-                  Descubra quem está interessado na sua empresa!
-                </h1>
-                <Input
-                  type="text"
-                  placeholder="Digite o nome da empresa"
-                  className="bg-input"
-                  value={url}
-                  onChange={(e) => setUrl(e.target.value)}
-                />
-                <Button
-                  type="submit"
-                  className="mt-4"
-                  isLoading={createRankingMutation.isPending}
-                >
-                  Buscar
-                </Button>
+                <div className="flex flex-col gap-4">
+                  <Input
+                    type="text"
+                    placeholder="Digite o nome da empresa"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                  />
+                  <Button
+                    type="submit"
+                    isLoading={createRankingMutation.isPending}
+                  >
+                    Buscar
+                  </Button>
+                </div>
               </form>
             </div>
-            <CardSwap
-              cardDistance={60}
-              verticalDistance={70}
-              delay={8000}
-              pauseOnHover={true}
-            >
-              <Card>
-                <h3>Card 1</h3>
-                <p>Your content here</p>
-              </Card>
-              <Card>
-                <h3>Card 2</h3>
-                <p>Your content here</p>
-              </Card>
-              <Card>
-                <h3>Card 3</h3>
-                <p>Your content here</p>
-              </Card>
-            </CardSwap>
           </div>
+          <CardSwap
+            cardDistance={60}
+            verticalDistance={70}
+            delay={8000}
+            pauseOnHover={true}
+          >
+            <Card>
+              <h3>Card 1</h3>
+              <p>Your content here</p>
+            </Card>
+            <Card>
+              <h3>Card 2</h3>
+              <p>Your content here</p>
+            </Card>
+            <Card>
+              <h3>Card 3</h3>
+              <p>Your content here</p>
+            </Card>
+          </CardSwap>
         </div>
       </ContentLayout>
     </>

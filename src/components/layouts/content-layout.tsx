@@ -11,8 +11,14 @@ export const ContentLayout = ({ children, title }: ContentLayoutProps) => {
   return (
     <>
       <Head title={title} />
-      <div className="mx-auto max-w-[96rem] px-4 py-6 sm:px-6 md:px-8">
-        {children}
+      <div className="flex flex-col">
+        <div className="mx-auto grid w-full max-w-[1920px] grid-cols-12 gap-2 self-center px-6 md:gap-4 md:px-10 lg:px-12 xl:gap-6 xl:px-20">
+          <div className="col-span-12">
+            <div className="flex max-w-full flex-col items-center">
+              {children}
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
