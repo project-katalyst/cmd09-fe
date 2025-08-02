@@ -162,16 +162,16 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
             }}
           >
             <div
-              className={`flex h-auto min-h-60 gap-8 rounded-xl border border-input bg-input/30 p-4 shadow-sm transition-colors duration-200 ${selectedIndex === index ? 'bg-input/50 text-accent-foreground' : ''} ${itemClassName}`}
+              className={`flex h-auto min-h-56 gap-4 rounded-xl border border-input bg-input/30 p-4 shadow-sm transition-colors duration-200 ${selectedIndex === index ? 'bg-input/50 text-accent-foreground' : ''} ${itemClassName}`}
             >
               <img
                 alt="Business Logo"
-                className="w-full max-w-80 rounded-md object-cover"
+                className="w-full max-w-52 rounded-md object-cover"
                 src={item.logo}
               />
               <div className="flex flex-col items-start gap-4 text-secondary-foreground">
-                <p className="m-0 text-2xl font-semibold">{item.name}</p>
-                <p className="m-0 text-base text-muted-foreground">
+                <p className="m-0 text-xl font-semibold">{item.name}</p>
+                <p className="m-0 text-sm text-muted-foreground">
                   {item.description}
                 </p>
               </div>
