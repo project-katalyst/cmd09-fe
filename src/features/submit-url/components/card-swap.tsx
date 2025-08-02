@@ -4,7 +4,6 @@ import gsap from 'gsap';
 import React, {
   Children,
   cloneElement,
-  forwardRef,
   isValidElement,
   ReactElement,
   ReactNode,
@@ -13,6 +12,8 @@ import React, {
   useMemo,
   useRef,
 } from 'react';
+
+import { CardProps } from './card';
 
 export interface CardSwapProps {
   width?: number | string;
@@ -26,21 +27,6 @@ export interface CardSwapProps {
   easing?: 'linear' | 'elastic';
   children: ReactNode;
 }
-
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
-  customClass?: string;
-}
-
-export const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ customClass, ...rest }, ref) => (
-    <div
-      ref={ref}
-      {...rest}
-      className={`absolute top-1/2 left-1/2 rounded-xl border bg-muted border-muted-foreground [transform-style:preserve-3d] [will-change:transform] [backface-visibility:hidden] ${customClass ?? ''} ${rest.className ?? ''}`.trim()}
-    />
-  ),
-);
-Card.displayName = 'Card';
 
 type CardRef = RefObject<HTMLDivElement>;
 interface Slot {

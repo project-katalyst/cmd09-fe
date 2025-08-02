@@ -1,11 +1,13 @@
+import { randImg } from '@ngneat/falso';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import { ContentLayout } from '@/components/layouts/content-layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input/input';
-import { useCreateRanking } from '@/features/ranking/api/create-ranking';
-import CardSwap, { Card } from '@/features/ranking/card-swap';
+import { useCreateRanking } from '@/features/submit-url/api/create-ranking';
+import { Card } from '@/features/submit-url/components/card';
+import CardSwap from '@/features/submit-url/components/card-swap';
 
 const HomeRoute = () => {
   const navigate = useNavigate();
@@ -60,21 +62,12 @@ const HomeRoute = () => {
         <CardSwap
           cardDistance={60}
           verticalDistance={70}
-          delay={8000}
+          delay={5000}
           pauseOnHover={true}
         >
-          <Card>
-            <h3>Card 1</h3>
-            <p>Your content here</p>
-          </Card>
-          <Card>
-            <h3>Card 2</h3>
-            <p>Your content here</p>
-          </Card>
-          <Card>
-            <h3>Card 3</h3>
-            <p>Your content here</p>
-          </Card>
+          <Card title="Ranking Nº 1" img={`${randImg()}?${Math.random()}`} />
+          <Card title="Ranking Nº 2" img={`${randImg()}?${Math.random()}`} />
+          <Card title="Ranking Nº 3" img={`${randImg()}?${Math.random()}`} />
         </CardSwap>
       </ContentLayout>
     </>

@@ -12,7 +12,7 @@ const generateRanking = () => ({
   businesses: Array.from({ length: 10 }, () => ({
     name: randCompanyName(),
     description: randParagraph(),
-    logo: randImg({ width: 100, height: 100, category: 'business' }),
+    logo: randImg(),
   })),
   createdAt: Date.now(),
 });
