@@ -11,8 +11,7 @@ const RankingRoute = () => {
 
   return (
     <ContentLayout title="Ranking">
-      <div className="mt-4 flex flex-col items-center gap-8">
-        <h1>Ranking Page</h1>
+      <div className="mt-4 flex flex-col items-center justify-center gap-8">
         <AnimatedList
           items={rankingData}
           onItemSelect={(item, index) => console.log(item, index)}

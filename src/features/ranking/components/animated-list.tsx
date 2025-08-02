@@ -139,13 +139,13 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
         ref={listRef}
         className={`max-h-[800px] overflow-y-auto p-4 ${
           displayScrollbar
-            ? '[&::-webkit-scrollbar-thumb]:rounded-[4px] [&::-webkit-scrollbar-thumb]:bg-[#222] [&::-webkit-scrollbar-track]:bg-[#060010] [&::-webkit-scrollbar]:w-[8px]'
-            : 'scrollbar-hide'
+            ? '[&::-webkit-scrollbar-thumb]:rounded-[4px] [&::-webkit-scrollbar-thumb]:bg-muted-foreground [&::-webkit-scrollbar-track]:bg-muted [&::-webkit-scrollbar]:w-[8px]'
+            : 'overflow-hidden'
         }`}
         onScroll={handleScroll}
         style={{
-          scrollbarWidth: displayScrollbar ? 'thin' : 'none',
-          scrollbarColor: '#222 #060010',
+          scrollbarWidth: displayScrollbar ? 'auto' : 'none',
+          scrollbarColor: 'auto',
         }}
       >
         {items.map((item, index) => (
@@ -162,16 +162,18 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
             }}
           >
             <div
-              className={`flex h-80 gap-8 rounded-lg bg-[#111] p-4 ${selectedIndex === index ? 'bg-[#222]' : ''} ${itemClassName}`}
+              className={`flex h-auto min-h-60 gap-8 rounded-xl border border-input bg-input/30 p-4 shadow-sm transition-colors duration-200 ${selectedIndex === index ? 'bg-input/50 text-accent-foreground' : ''} ${itemClassName}`}
             >
               <img
                 alt="Business Logo"
-                className="w-full max-w-80"
+                className="w-full max-w-80 rounded-md object-cover"
                 src={item.logo}
               />
-              <div className="flex flex-col items-center gap-4">
-                <p className="m-0 text-white">{item.name}</p>
-                <p className="m-0 text-white">{item.description}</p>
+              <div className="flex flex-col items-start gap-4 text-secondary-foreground">
+                <p className="m-0 text-2xl font-semibold">{item.name}</p>
+                <p className="m-0 text-base text-muted-foreground">
+                  {item.description}
+                </p>
               </div>
             </div>
           </AnimatedItem>
@@ -180,11 +182,11 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
       {showGradients && (
         <>
           <div
-            className="ease pointer-events-none absolute inset-x-0 top-0 h-[50px] bg-gradient-to-b from-[#060010] to-transparent transition-opacity duration-300"
+            className="ease pointer-events-none absolute inset-x-0 top-0 h-[50px] bg-gradient-to-b from-background to-transparent transition-opacity duration-300"
             style={{ opacity: topGradientOpacity }}
           ></div>
           <div
-            className="ease pointer-events-none absolute inset-x-0 bottom-0 h-[100px] bg-gradient-to-t from-[#060010] to-transparent transition-opacity duration-300"
+            className="ease pointer-events-none absolute inset-x-0 bottom-0 h-[100px] bg-gradient-to-t from-background to-transparent transition-opacity duration-300"
             style={{ opacity: bottomGradientOpacity }}
           ></div>
         </>

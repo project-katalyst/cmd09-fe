@@ -44,7 +44,7 @@ const HomeRoute = () => {
                 <div className="flex flex-col gap-4">
                   <Input
                     type="text"
-                    placeholder="Digite o nome da empresa"
+                    placeholder="Digite a URL da sua empresa"
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
                   />
