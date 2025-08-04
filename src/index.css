@@ -20,8 +20,8 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --foreground: 120 2% 24%;
+    --background: 92 13% 75%;
 
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
@@ -109,8 +109,10 @@
 
 @layer components {
   .text-h1 {
-    font-size: clamp(2rem, 3.18vi + 1.2rem, 3.75rem);
-    line-height: 1.06;
+    font-size: clamp(1.5rem, 0.3vi + 1.4rem, 2rem);
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    font-weight: 400;
   }
 
   .text-title2 {

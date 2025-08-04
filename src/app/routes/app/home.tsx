@@ -1,13 +1,11 @@
-import { randImg } from '@ngneat/falso';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import { ContentLayout } from '@/components/layouts/content-layout';
 import { Button } from '@/components/ui/button';
+import { Footer } from '@/components/ui/footer';
 import { Input } from '@/components/ui/input/input';
 import { useCreateRanking } from '@/features/submit-url/api/create-ranking';
-import { Card } from '@/features/submit-url/components/card';
-import CardSwap from '@/features/submit-url/components/card-swap';
 
 const HomeRoute = () => {
   const navigate = useNavigate();
@@ -24,16 +22,7 @@ const HomeRoute = () => {
   return (
     <>
       <ContentLayout title="Home">
-        <div className="flex w-full max-w-4xl flex-col items-center gap-8">
-          <h1 className="text-h1 w-full text-center font-bold tracking-tight">
-            Descubra quem está interessado na sua empresa!
-          </h1>
-          <p className="text-title2 mx-auto text-balance text-center">
-            Descubra clientes e parceiros que já demonstram interesse no seu
-            negócio. Insira o nome da sua empresa e explore as oportunidades.
-          </p>
-        </div>
-        <div className="h-[160px] w-full md:h-[220px]">
+        <div className="w-full max-w-6xl items-center justify-center">
           <div className="flex size-full flex-col items-center justify-center">
             <form
               className="w-full max-w-md"
@@ -59,16 +48,7 @@ const HomeRoute = () => {
             </form>
           </div>
         </div>
-        <CardSwap
-          cardDistance={60}
-          verticalDistance={70}
-          delay={5000}
-          pauseOnHover={true}
-        >
-          <Card title="Ranking Nº 1" img={`${randImg()}?${Math.random()}`} />
-          <Card title="Ranking Nº 2" img={`${randImg()}?${Math.random()}`} />
-          <Card title="Ranking Nº 3" img={`${randImg()}?${Math.random()}`} />
-        </CardSwap>
+        <Footer />
       </ContentLayout>
     </>
   );
