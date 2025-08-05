@@ -16,7 +16,6 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-        radar: ['Primary', 'sans-serif'],
       },
       colors: {
         border: 'hsl(var(--border))',

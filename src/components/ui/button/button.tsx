@@ -5,12 +5,12 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive group relative w-full shrink-0 overflow-hidden whitespace-nowrap rounded-full outline-none transition-all focus-visible:border-ring focus-visible:ring focus-visible:ring-foreground/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 [&_svg:not([class*="size-"])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0',
+  'group relative w-full overflow-hidden rounded-md disabled:cursor-not-allowed disabled:opacity-50',
   {
     variants: {
       variant: {
         default:
-          'bg-foreground text-primary-foreground shadow hover:bg-foreground/90',
+          'bg-primary text-primary-foreground shadow hover:bg-primary/90',
         destructive:
           'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
         outline:

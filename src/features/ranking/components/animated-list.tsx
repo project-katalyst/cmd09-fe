@@ -169,9 +169,9 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
                 className="w-full max-w-52 rounded-md object-cover"
                 src={item.logo}
               />
-              <div className="flex flex-col items-start gap-4 text-foreground">
+              <div className="flex flex-col items-start gap-4 text-secondary-foreground">
                 <p className="m-0 text-xl font-semibold">{item.name}</p>
-                <p className="m-0 text-base text-muted-foreground">
+                <p className="m-0 text-sm text-muted-foreground">
                   {item.description}
                 </p>
               </div>
