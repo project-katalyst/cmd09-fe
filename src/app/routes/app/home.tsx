@@ -27,7 +27,7 @@ const HomeRoute = () => {
           </h1>
           <p className="text-title2 mx-auto text-balance text-center">
             Descubra clientes e parceiros que já demonstram interesse no seu
-            negócio. Insira o nome da sua empresa e explore as oportunidades.
+            negócio. Insira o site da sua empresa e explore as oportunidades.
           </p>
         </div>
         <div className="h-[160px] w-full md:h-[220px]">
@@ -46,14 +46,12 @@ const HomeRoute = () => {
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
                 />
-                <div className="relative">
-                  <Button
-                    type="submit"
-                    isLoading={createRankingMutation.isPending}
-                  >
-                    Buscar
-                  </Button>
-                </div>
+                <Button
+                  type="submit"
+                  isLoading={createRankingMutation.isPending}
+                >
+                  Buscar
+                </Button>
               </div>
             </form>
           </div>
