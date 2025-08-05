@@ -23,7 +23,16 @@ const HomeRoute = () => {
     <>
       <ContentLayout title="Home">
         <div className="w-full max-w-6xl items-center justify-center">
-          <div className="flex size-full flex-col items-center justify-center">
+          <div className="flex size-full items-center justify-center">
+            <div className="flex w-full max-w-4xl flex-col items-center gap-4">
+              <h1 className="w-full text-center font-radar text-9xl uppercase">
+                Explore
+              </h1>
+              <p className="mx-auto text-balance text-center">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Possimus ut commodi molestias labore natus tempora deserunt,
+              </p>
+            </div>
             <form
               className="w-full max-w-md"
               onSubmit={(e) => {
