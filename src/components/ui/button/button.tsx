@@ -5,12 +5,11 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'group relative w-full overflow-hidden rounded-md disabled:cursor-not-allowed disabled:opacity-50',
+  'group relative w-full overflow-hidden rounded-full font-semibold disabled:cursor-not-allowed disabled:opacity-50',
   {
     variants: {
       variant: {
-        default:
-          'bg-primary text-primary-foreground shadow hover:bg-primary/90',
+        default: 'bg-primary text-primary-foreground shadow',
         destructive:
           'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
         outline:
@@ -51,7 +50,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       asChild = false,
       children,
       isLoading,
-      icon,
       ...props
     },
     ref,
@@ -59,14 +57,17 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : 'button';
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants({ variant, size, className }), 'group')}
         ref={ref}
         {...props}
       >
-        {!isLoading && icon && <span className="mr-2">{icon}</span>}
-        <span className="relative z-20 flex items-center justify-center gap-2">
-          {isLoading && 'Carregando...'}
-          {!isLoading && children}
+        <span className="relative block size-full overflow-hidden">
+          <span className="block transition-all duration-500 ease-custom-bezier md:group-hover:-translate-y-full md:group-hover:opacity-0">
+            {isLoading ? 'Carregando...' : children}
+          </span>
+          <span className="absolute top-full block w-full opacity-0 transition-all duration-500 ease-custom-bezier md:group-hover:-translate-y-full md:group-hover:opacity-100">
+            {isLoading ? 'Carregando...' : children}
+          </span>
         </span>
       </Comp>
     );
