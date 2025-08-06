@@ -16,7 +16,9 @@
     "run-mock-server": "vite-node mock-server.ts | pino-pretty -c"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.1",
     "@ngneat/falso": "^7.2.0",
+    "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
     "@tanstack/react-query": "^5.32.0",
     "@tanstack/react-query-devtools": "^5.32.0",
@@ -35,6 +37,7 @@
     "react-dom": "^18.3.1",
     "react-error-boundary": "^4.0.13",
     "react-helmet-async": "^2.0.4",
+    "react-hook-form": "^7.62.0",
     "react-router": "^7.0.2",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
