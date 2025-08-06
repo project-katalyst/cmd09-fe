@@ -1,25 +1,8 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
-
 import { ContentLayout } from '@/components/layouts/content-layout';
 import { Aurora } from '@/components/ui/aurora';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input/input';
-import { useCreateRanking } from '@/features/submit-url/api/create-ranking';
+import { InputForm } from '@/features/home/components/input-form';
 
 const HomeRoute = () => {
-  const navigate = useNavigate();
-
-  const [url, setUrl] = useState('');
-
-  const createRankingMutation = useCreateRanking({
-    mutationConfig: {
-      onSuccess: (data) => {
-        navigate('/ranking', { state: data.businesses });
-      },
-    },
-  });
-
   return (
     <>
       <ContentLayout title="Home">
@@ -42,28 +25,9 @@ const HomeRoute = () => {
         </div>
         <div className="h-[160px] w-full md:h-[220px]">
           <div className="flex size-full flex-col items-center justify-center">
-            <form
-              className="w-full max-w-md"
-              onSubmit={(e) => {
-                e.preventDefault();
-                createRankingMutation.mutate({ data: { url } });
-              }}
-            >
-              <div className="flex flex-col gap-4">
-                <Input
-                  type="text"
-                  placeholder="Digite a URL da sua empresa"
-                  value={url}
-                  onChange={(e) => setUrl(e.target.value)}
-                />
-                <Button
-                  type="submit"
-                  isLoading={createRankingMutation.isPending}
-                >
-                  Buscar
-                </Button>
-              </div>
-            </form>
+            <div className="w-full max-w-md">
+              <InputForm />
+            </div>
           </div>
         </div>
       </ContentLayout>
