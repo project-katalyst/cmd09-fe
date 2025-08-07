@@ -1,7 +1,6 @@
-'use client';
-
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { FieldErrors, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 import { z } from 'zod';
 
@@ -41,9 +40,20 @@ export function InputForm() {
     createRankingMutation.mutate({ data });
   }
 
+  function onError(errors: FieldErrors<{ url: string }>) {
+    if (errors.url) {
+      toast.error('URL inválida', {
+        id: 'url-error',
+      });
+    }
+  }
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit, onError)}
+        className="space-y-6"
+      >
         <FormField
           control={form.control}
           name="url"
