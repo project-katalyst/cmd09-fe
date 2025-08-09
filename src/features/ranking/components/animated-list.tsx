@@ -8,6 +8,7 @@ import React, {
   UIEvent,
 } from 'react';
 
+import { Badge } from '@/components/ui/badge';
 import { Business } from '@/types/api';
 
 interface AnimatedItemProps {
@@ -174,6 +175,11 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
                 <p className="m-0 text-base text-muted-foreground">
                   {item.description}
                 </p>
+                <div className="flex flex-wrap gap-2">
+                  <Badge>tag example</Badge>
+                  <Badge>tag example 2</Badge>
+                  <Badge>tag example 3</Badge>
+                </div>
               </div>
             </div>
           </AnimatedItem>
