@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router';
 
 import { ContentLayout } from '@/components/layouts/content-layout';
+import { AuroraBackground } from '@/components/ui/aurora/aurora-background';
 import AnimatedList from '@/features/ranking/components/animated-list';
 
 const RankingRoute = () => {
@@ -11,15 +12,17 @@ const RankingRoute = () => {
 
   return (
     <ContentLayout title="Ranking">
-      <div className="mt-4 flex flex-col items-center justify-center gap-8">
-        <AnimatedList
-          items={rankingData}
-          onItemSelect={(item, index) => console.log(item, index)}
-          showGradients={false}
-          enableArrowNavigation={true}
-          displayScrollbar={true}
-        />
-      </div>
+      <AuroraBackground className="absolute inset-0">
+        <div className="bg-glass rounded-3xl p-8 shadow-sm backdrop-blur-[30px]">
+          <AnimatedList
+            items={rankingData}
+            onItemSelect={(item, index) => console.log(item, index)}
+            showGradients={false}
+            enableArrowNavigation={true}
+            displayScrollbar={true}
+          />
+        </div>
+      </AuroraBackground>
     </ContentLayout>
   );
 };

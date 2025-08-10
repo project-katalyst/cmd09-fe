@@ -163,7 +163,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
             }}
           >
             <div
-              className={`flex h-auto min-h-56 gap-4 rounded-xl border border-input bg-input/30 p-4 shadow-sm transition-colors duration-200 ${selectedIndex === index ? 'bg-input/50 text-accent-foreground' : ''} ${itemClassName}`}
+              className={`bg-card2 flex h-auto min-h-56 gap-4 rounded-3xl p-4 shadow-sm transition-colors duration-200 ${selectedIndex === index ? 'text-accent-foreground' : ''} ${itemClassName}`}
             >
               <img
                 alt="Business Logo"

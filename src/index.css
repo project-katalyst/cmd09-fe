@@ -103,6 +103,16 @@
     letter-spacing: -0.4px;
     font-weight: 400;
   }
+
+  .bg-glass {
+    background-color: rgba(13, 13, 13, 0.2);
+    border: 1px solid rgb(36, 36, 36);
+  }
+
+  .bg-card2 {
+    background-color: rgb(29, 29, 29);
+    border: 1px solid rgb(36, 36, 36);
+  }
 }
 
 body {
