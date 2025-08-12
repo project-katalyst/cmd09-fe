@@ -15,6 +15,7 @@ export type Business = {
   name: string;
   description: string;
   logo: string;
+  tags: string[];
 };
 
 export type Ranking = {

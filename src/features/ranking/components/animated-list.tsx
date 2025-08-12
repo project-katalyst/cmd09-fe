@@ -140,14 +140,10 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
         ref={listRef}
         className={`max-h-[800px] overflow-y-auto p-4 ${
           displayScrollbar
-            ? '[&::-webkit-scrollbar-thumb]:rounded-[4px] [&::-webkit-scrollbar-thumb]:bg-muted-foreground [&::-webkit-scrollbar-track]:bg-muted [&::-webkit-scrollbar]:w-[8px]'
-            : 'overflow-hidden'
+            ? 'scrollbar-w-2 scrollbar scrollbar-track-muted scrollbar-track-transparent scrollbar-thumb-muted-foreground scrollbar-thumb-rounded'
+            : 'scrollbar-none'
         }`}
         onScroll={handleScroll}
-        style={{
-          scrollbarWidth: displayScrollbar ? 'auto' : 'none',
-          scrollbarColor: 'auto',
-        }}
       >
         {items.map((item, index) => (
           <AnimatedItem
@@ -176,9 +172,9 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
                   {item.description}
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <Badge>tag example</Badge>
-                  <Badge>tag example 2</Badge>
-                  <Badge>tag example 3</Badge>
+                  {item.tags.map((tag, tagKey) => (
+                    <Badge key={tagKey}>{tag}</Badge>
+                  ))}
                 </div>
               </div>
             </div>

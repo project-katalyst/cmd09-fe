@@ -4,6 +4,7 @@ import {
   randUuid,
   randUrl,
   randImg,
+  randProductCategory,
 } from '@ngneat/falso';
 
 const generateRanking = () => ({
@@ -13,6 +14,7 @@ const generateRanking = () => ({
     name: randCompanyName(),
     description: randParagraph(),
     logo: randImg(),
+    tags: Array.from({ length: 5 }, () => randProductCategory()),
   })),
   createdAt: Date.now(),
 });
