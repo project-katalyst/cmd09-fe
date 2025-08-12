@@ -13,6 +13,14 @@ type AppProviderProps = {
   children: React.ReactNode;
 };
 
+const toastStyle = {
+  background: 'rgb(29,29,29)',
+  color: 'var(--foreground)',
+  border: '1px solid rgb(36,36,36)',
+  borderRadius: '100px',
+  fontSize: '0.875rem',
+};
+
 export const AppProvider = ({ children }: AppProviderProps) => {
   const [queryClient] = React.useState(
     () =>
@@ -37,12 +45,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
               containerStyle={{ bottom: 200 }}
               toastOptions={{
                 position: 'bottom-center',
-                style: {
-                  background: '#121214',
-                  color: 'var(--foreground)',
-                  borderRadius: '100px',
-                  fontSize: '0.875rem',
-                },
+                style: toastStyle,
                 error: {
                   iconTheme: {
                     primary: '#d02f2f',
