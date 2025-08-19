@@ -5,23 +5,23 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive group relative w-full overflow-hidden rounded-full font-semibold disabled:cursor-not-allowed disabled:opacity-50',
+  'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive group relative w-full overflow-hidden font-semibold disabled:cursor-not-allowed disabled:opacity-50',
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground shadow',
+        default: 'rounded-full bg-primary text-primary-foreground shadow',
         destructive:
           'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90',
         outline:
-          'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
+          'rounded-xl border border-primary/20 bg-transparent shadow-sm transition-all duration-700 hover:border-primary/50',
         secondary:
           'bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {
-        default: 'px-6 py-3',
-        sm: 'h-8 rounded-md px-3 text-xs',
+        default: 'px-6 py-3 text-sm',
+        sm: 'p-3 text-xs',
         lg: 'h-12 rounded-md px-8 text-base',
         icon: 'size-9',
       },
@@ -62,10 +62,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {...props}
       >
         <span className="relative block size-full overflow-hidden">
-          <span className="block transition-all duration-500 ease-custom-bezier md:group-hover:-translate-y-full md:group-hover:opacity-0">
+          <span className="block transition-all duration-700 ease-custom-bezier md:group-hover:-translate-y-full md:group-hover:opacity-0">
             {isLoading ? 'Carregando...' : children}
           </span>
-          <span className="absolute top-full block w-full opacity-0 transition-all duration-500 ease-custom-bezier md:group-hover:-translate-y-full md:group-hover:opacity-100">
+          <span className="absolute top-full block w-full opacity-0 transition-all duration-700 ease-custom-bezier md:group-hover:-translate-y-full md:group-hover:opacity-100">
             {isLoading ? 'Carregando...' : children}
           </span>
         </span>

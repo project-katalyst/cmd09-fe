@@ -8,8 +8,34 @@ import React, {
   UIEvent,
 } from 'react';
 
-import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { ScoreVisualization } from '@/components/ui/score-visualization';
 import { Business } from '@/types/api';
+
+// Helper function to validate and handle URL opening
+const handleVisitWebsite = (url: string) => {
+  if (!url || typeof url !== 'string') {
+    return;
+  }
+
+  // Add protocol if missing
+  let validUrl = url.trim();
+  if (
+    validUrl &&
+    !validUrl.startsWith('http://') &&
+    !validUrl.startsWith('https://')
+  ) {
+    validUrl = `https://${validUrl}`;
+  }
+
+  try {
+    // Validate URL format
+    new URL(validUrl);
+    window.open(validUrl, '_blank', 'noopener,noreferrer');
+  } catch (error) {
+    console.warn('Invalid URL provided:', url);
+  }
+};
 
 interface AnimatedItemProps {
   children: ReactNode;
@@ -37,7 +63,7 @@ const AnimatedItem: React.FC<AnimatedItemProps> = ({
       initial={{ scale: 0.7, opacity: 0 }}
       animate={inView ? { scale: 1, opacity: 1 } : { scale: 0.7, opacity: 0 }}
       transition={{ duration: 0.2, delay }}
-      className="mb-4 cursor-pointer"
+      className="mb-6 cursor-pointer"
     >
       {children}
     </motion.div>
@@ -50,7 +76,6 @@ interface AnimatedListProps {
   showGradients?: boolean;
   enableArrowNavigation?: boolean;
   className?: string;
-  itemClassName?: string;
   displayScrollbar?: boolean;
   initialSelectedIndex?: number;
 }
@@ -61,7 +86,6 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
   showGradients = true,
   enableArrowNavigation = true,
   className = '',
-  itemClassName = '',
   displayScrollbar = true,
   initialSelectedIndex = -1,
 }) => {
@@ -135,12 +159,12 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
   }, [selectedIndex, keyboardNav]);
 
   return (
-    <div className={`relative w-[1000px] ${className}`}>
+    <div className={`relative w-[inherit] ${className}`}>
       <div
         ref={listRef}
-        className={`max-h-[800px] overflow-y-auto p-4 ${
+        className={`max-h-[800px] overflow-y-auto px-6 py-8 ${
           displayScrollbar
-            ? 'scrollbar-w-2 scrollbar scrollbar-track-muted scrollbar-track-transparent scrollbar-thumb-muted-foreground scrollbar-thumb-rounded'
+            ? 'scrollbar-thin scrollbar-track-transparent scrollbar-thumb-muted-foreground'
             : 'scrollbar-none'
         }`}
         onScroll={handleScroll}
@@ -158,24 +182,35 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
               }
             }}
           >
-            <div
-              className={`bg-card2 flex h-auto min-h-56 gap-4 rounded-3xl p-4 shadow-sm transition-colors duration-200 ${selectedIndex === index ? 'text-accent-foreground' : ''} ${itemClassName}`}
-            >
-              <img
-                alt="Business Logo"
-                className="w-full max-w-52 rounded-md object-cover"
-                src={item.logo}
-              />
-              <div className="flex flex-col items-start gap-4 text-secondary-foreground">
-                <p className="m-0 text-xl font-semibold">{item.name}</p>
-                <p className="m-0 text-base text-muted-foreground">
+            <div className="bg-card2 flex h-auto min-h-56 flex-col gap-6 rounded-3xl p-8 shadow-sm transition-all duration-200 sm:flex-row sm:gap-8 ">
+              <div className="flex items-center justify-between sm:flex-col sm:justify-center sm:gap-4">
+                <div className="mb-2 flex shrink-0 items-center justify-center sm:mb-0">
+                  <ScoreVisualization
+                    score={item.score}
+                    variant="circular"
+                    size="md"
+                    className="sm:size-20"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-1 flex-col justify-center gap-4 sm:gap-3">
+                <h3 className="m-0 text-2xl font-bold leading-tight text-white dark:text-white">
+                  {item.name}
+                </h3>
+                <p className="m-0 text-base leading-relaxed text-gray-200 dark:text-gray-300">
                   {item.description}
                 </p>
-                <div className="flex flex-wrap gap-2">
-                  {item.tags.map((tag, tagKey) => (
-                    <Badge key={tagKey}>{tag}</Badge>
-                  ))}
-                </div>
+              </div>
+              <div className="items-center sm:ml-4 sm:flex">
+                <Button
+                  variant="outline"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleVisitWebsite(item.url);
+                  }}
+                >
+                  Visit
+                </Button>
               </div>
             </div>
           </AnimatedItem>

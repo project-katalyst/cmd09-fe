@@ -13,14 +13,16 @@ const RankingRoute = () => {
   return (
     <ContentLayout title="Ranking">
       <AuroraBackground className="absolute inset-0">
-        <div className="bg-glass rounded-3xl p-8 shadow-sm backdrop-blur-[30px]">
-          <AnimatedList
-            items={rankingData}
-            onItemSelect={(item, index) => console.log(item, index)}
-            showGradients={false}
-            enableArrowNavigation={true}
-            displayScrollbar={true}
-          />
+        <div className="mx-4 my-8 max-w-5xl sm:mx-6 md:mx-8 lg:mx-12 xl:mx-16">
+          <div className="bg-glass rounded-3xl p-6 shadow-sm backdrop-blur-[30px] sm:p-8 md:p-10 lg:p-12">
+            <AnimatedList
+              items={rankingData}
+              onItemSelect={(item, index) => console.log(item, index)}
+              showGradients={false}
+              enableArrowNavigation={true}
+              displayScrollbar={true}
+            />
+          </div>
         </div>
       </AuroraBackground>
     </ContentLayout>

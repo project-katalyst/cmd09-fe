@@ -14,8 +14,8 @@ export type Entity<T> = {
 export type Business = {
   name: string;
   description: string;
-  logo: string;
-  tags: string[];
+  score: number;
+  url: string;
 };
 
 export type Ranking = {
@@ -23,4 +23,5 @@ export type Ranking = {
   url: string;
   businesses: Business[];
   createdAt: number;
+  tags: string[];
 };
