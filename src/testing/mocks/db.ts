@@ -6,6 +6,7 @@ const models = {
     id: primaryKey(nanoid),
     url: String,
     businesses: Array,
+    tags: Array,
     createdAt: Date,
   },
 };

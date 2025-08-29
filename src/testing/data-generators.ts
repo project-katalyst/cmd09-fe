@@ -11,11 +11,11 @@ import {
 const generateRanking = () => ({
   id: randUuid() + Math.random(),
   url: randUrl(),
+  tags: Array.from({ length: 5 }, () => randProductCategory()),
   businesses: Array.from({ length: 10 }, () => ({
     name: randCompanyName(),
     description: randParagraph(),
     logo: randImg(),
-    tags: Array.from({ length: 5 }, () => randProductCategory()),
     score: randNumber({ min: 0, max: 100 }),
     url: randUrl(),
   })),

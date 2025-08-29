@@ -24,7 +24,7 @@ export function InputForm() {
   const createRankingMutation = useCreateRanking({
     mutationConfig: {
       onSuccess: (data) => {
-        navigate('/ranking', { state: data.businesses });
+        navigate('/ranking', { state: data });
       },
     },
   });
@@ -65,7 +65,11 @@ export function InputForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" isLoading={createRankingMutation.isPending}>
+        <Button
+          type="submit"
+          className="w-full rounded-full"
+          isLoading={createRankingMutation.isPending}
+        >
           Submit
         </Button>
       </form>

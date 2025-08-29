@@ -12,31 +12,6 @@ import { Button } from '@/components/ui/button';
 import { ScoreVisualization } from '@/components/ui/score-visualization';
 import { Business } from '@/types/api';
 
-// Helper function to validate and handle URL opening
-const handleVisitWebsite = (url: string) => {
-  if (!url || typeof url !== 'string') {
-    return;
-  }
-
-  // Add protocol if missing
-  let validUrl = url.trim();
-  if (
-    validUrl &&
-    !validUrl.startsWith('http://') &&
-    !validUrl.startsWith('https://')
-  ) {
-    validUrl = `https://${validUrl}`;
-  }
-
-  try {
-    // Validate URL format
-    new URL(validUrl);
-    window.open(validUrl, '_blank', 'noopener,noreferrer');
-  } catch (error) {
-    console.warn('Invalid URL provided:', url);
-  }
-};
-
 interface AnimatedItemProps {
   children: ReactNode;
   delay?: number;
@@ -194,19 +169,18 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
                 </div>
               </div>
               <div className="flex flex-1 flex-col justify-center gap-4 sm:gap-3">
-                <h3 className="m-0 text-2xl font-bold leading-tight text-white dark:text-white">
+                <h3 className="m-0 text-2xl font-bold leading-tight text-primary">
                   {item.name}
                 </h3>
-                <p className="m-0 text-base leading-relaxed text-gray-200 dark:text-gray-300">
+                <p className="m-0 text-base leading-relaxed text-muted-foreground">
                   {item.description}
                 </p>
               </div>
-              <div className="items-center sm:ml-4 sm:flex">
+              <div className="flex items-center">
                 <Button
                   variant="outline"
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleVisitWebsite(item.url);
                   }}
                 >
                   Visit
