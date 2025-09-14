@@ -70,7 +70,7 @@ export function InputForm() {
           className="w-full rounded-full"
           isLoading={createRankingMutation.isPending}
         >
-          Submit
+          Enviar
         </Button>
       </form>
     </Form>
