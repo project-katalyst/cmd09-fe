@@ -1,19 +1,11 @@
 import { ContentLayout } from '@/components/layouts/content-layout';
-import { Aurora } from '@/components/ui/aurora';
 import { InputForm } from '@/features/home/components/input-form';
 
 const HomeRoute = () => {
   return (
     <>
       <ContentLayout title="Home">
-        <div className="absolute inset-0 -z-10">
-          <Aurora
-            colorStops={['#7cff67', '#B19EEF', '#5227ff']}
-            blend={0.5}
-            amplitude={1.0}
-            speed={1.0}
-          />
-        </div>
+        <div className="absolute inset-0 -z-10"></div>
         <div className="flex w-full max-w-4xl flex-col items-center gap-8">
           <h1 className="text-h1 w-full text-center font-bold tracking-tight">
             Descubra quem está interessado na sua empresa!
