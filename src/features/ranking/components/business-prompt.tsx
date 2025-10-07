@@ -25,8 +25,10 @@ export const BusinessCategorizationPrompt = ({
     const maxLength = Math.max(...values.map((arr) => arr.length));
     const result = [];
     for (let i = 0; i < maxLength; i++) {
-      const sentence = values.map((arr) => arr[i] || '').join(' : ');
-      result.push(sentence);
+      const sentenceParts = values.map((arr) => arr[i]).filter((part) => part); // Filter out empty, null, or undefined values
+      if (sentenceParts.length > 0) {
+        result.push(sentenceParts.join(' : '));
+      }
     }
     return result;
   }, [tags]);
