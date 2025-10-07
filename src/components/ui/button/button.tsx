@@ -37,6 +37,7 @@ export interface ButtonProps
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   isLoading?: boolean;
+  isAnimated?: boolean;
   icon?: React.ReactNode;
 }
 
@@ -49,25 +50,36 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       asChild = false,
       children,
       isLoading,
+      isAnimated = false,
       ...props
     },
     ref,
   ) => {
     const Comp = asChild ? Slot : 'button';
+    const content = isLoading ? 'Carregando...' : children;
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }), 'group')}
+        className={cn(
+          buttonVariants({ variant, size, className }),
+          'group',
+          !isAnimated &&
+            'transition-opacity duration-200 ease-in-out hover:opacity-80',
+        )}
         ref={ref}
         {...props}
       >
-        <span className="relative flex size-full items-center justify-center overflow-hidden">
-          <span className="block transition-all duration-700 ease-custom-bezier md:group-hover:-translate-y-full md:group-hover:opacity-0">
-            {isLoading ? 'Carregando...' : children}
+        {isAnimated ? (
+          <span className="relative flex size-full items-center justify-center overflow-hidden">
+            <span className="block transition-all duration-700 ease-custom-bezier md:group-hover:-translate-y-full md:group-hover:opacity-0">
+              {content}
+            </span>
+            <span className="absolute top-full block w-full text-center transition-all duration-700 ease-custom-bezier md:group-hover:-translate-y-full md:group-hover:opacity-100">
+              {content}
+            </span>
           </span>
-          <span className="absolute top-full block w-full text-center transition-all duration-700 ease-custom-bezier md:group-hover:-translate-y-full md:group-hover:opacity-100">
-            {isLoading ? 'Carregando...' : children}
-          </span>
-        </span>
+        ) : (
+          content
+        )}
       </Comp>
     );
   },

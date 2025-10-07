@@ -6,6 +6,7 @@ import React, {
   ReactNode,
   MouseEventHandler,
   UIEvent,
+  useMemo,
 } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -70,6 +71,10 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
   const [keyboardNav, setKeyboardNav] = useState<boolean>(false);
   const [topGradientOpacity, setTopGradientOpacity] = useState<number>(0);
   const [bottomGradientOpacity, setBottomGradientOpacity] = useState<number>(1);
+
+  const sortedItems = useMemo(() => {
+    return [...items].sort((a, b) => b.score - a.score);
+  }, [items]);
 
   const handleScroll = (e: UIEvent<HTMLDivElement>) => {
     const { scrollTop, scrollHeight, clientHeight } =
@@ -144,7 +149,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
         }`}
         onScroll={handleScroll}
       >
-        {items.map((item, index) => (
+        {sortedItems.map((item, index) => (
           <AnimatedItem
             key={index}
             delay={0.1}
@@ -177,14 +182,14 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
                 </p>
               </div>
               <div className="flex items-center">
-                <Button
-                  variant="outline"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  Visit
-                </Button>
+                  <Button variant="outline">Visitar</Button>
+                </a>
               </div>
             </div>
           </AnimatedItem>

@@ -86,6 +86,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -105,7 +106,7 @@
   }
 
   .bg-glass {
-    background-color: rgba(13, 13, 13, 0.2);
+    background-color: rgba(13, 13, 13, 0.5);
     border: 1px solid rgb(36, 36, 36);
   }
 
