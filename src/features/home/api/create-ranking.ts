@@ -6,7 +6,11 @@ import { MutationConfig } from '@/lib/react-query';
 import { Ranking } from '@/types/api';
 
 export const createRankingInputSchema = z.object({
-  url: z.url(),
+  url: z.url({ message: 'URL inválida' }),
+  ebitda: z
+    .number({ message: 'EBITDA inválido' })
+    .min(-10000000000, { message: 'Valor muito baixo' })
+    .max(100000000000, { message: 'Valor muito alto' }),
 });
 
 export type CreateRankingInput = z.infer<typeof createRankingInputSchema>;

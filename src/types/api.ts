@@ -21,6 +21,7 @@ export type Business = {
 export type Ranking = {
   id: string;
   url: string;
+  ebitda: number;
   businesses: Business[];
   createdAt: number;
   tags: string[];

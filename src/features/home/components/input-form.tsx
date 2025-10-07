@@ -33,6 +33,7 @@ export function InputForm() {
     resolver: zodResolver(createRankingInputSchema),
     defaultValues: {
       url: '',
+      ebitda: undefined,
     },
   });
 
@@ -40,10 +41,16 @@ export function InputForm() {
     createRankingMutation.mutate({ data });
   }
 
-  function onError(errors: FieldErrors<{ url: string }>) {
+  function onError(
+    errors: FieldErrors<z.infer<typeof createRankingInputSchema>>,
+  ) {
     if (errors.url) {
-      toast.error('URL inválida', {
+      toast.error(errors.url.message || 'URL inválida', {
         id: 'url-error',
+      });
+    } else if (errors.ebitda) {
+      toast.error(errors.ebitda.message || 'EBITDA inválido', {
+        id: 'ebitda-error',
       });
     }
   }
@@ -61,6 +68,26 @@ export function InputForm() {
             <FormItem>
               <FormControl>
                 <Input placeholder="Digite a URL da sua empresa" {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="ebitda"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  type="number"
+                  placeholder="Digite o EBITDA da sua empresa"
+                  {...field}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    field.onChange(value === '' ? undefined : Number(value));
+                  }}
+                  value={field.value ?? ''}
+                />
               </FormControl>
             </FormItem>
           )}

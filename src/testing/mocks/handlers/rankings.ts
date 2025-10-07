@@ -11,8 +11,10 @@ export const rankingsHandlers = [
     await networkDelay();
 
     try {
-      const url = await request.json();
-      const ranking = createRanking(url && typeof url === 'object' ? url : {});
+      const data = await request.json();
+      const ranking = createRanking(
+        data && typeof data === 'object' ? data : {},
+      );
       const result = db.ranking.create({
         ...ranking,
         createdAt: String(ranking.createdAt),

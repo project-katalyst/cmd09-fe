@@ -49,6 +49,7 @@ const generateRanking = () => {
   return {
     id: randUuid() + Math.random(),
     url: randUrl(),
+    ebitda: randNumber({ min: 100000, max: 10000000 }),
     tags: Array.from({ length: 5 }, () => randProductCategory()),
     businesses: Array.from({ length: 10 }, (_, i) => ({
       name: shuffledNames[i],

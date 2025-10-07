@@ -5,6 +5,7 @@ const models = {
   ranking: {
     id: primaryKey(nanoid),
     url: String,
+    ebitda: Number,
     businesses: Array,
     tags: Array,
     createdAt: Date,

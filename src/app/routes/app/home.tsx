@@ -29,7 +29,7 @@ const HomeRoute = () => {
             negócio. Insira o site da sua empresa e explore as oportunidades.
           </p>
         </div>
-        <div className="h-[160px] w-full md:h-[220px]">
+        <div className="mt-4 h-[160px] w-full md:h-[220px]">
           <div className="flex size-full flex-col items-center justify-center">
             <div className="w-full max-w-md">
               <InputForm />
