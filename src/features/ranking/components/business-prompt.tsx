@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 
 interface BusinessCategorizationPromptProps {
   tagList: string[];
-  onConfirm: () => void;
+  onConfirm: (tags: string[]) => void;
 }
 
 export const BusinessCategorizationPrompt = ({
@@ -70,7 +70,7 @@ export const BusinessCategorizationPrompt = ({
         </AnimatePresence>
       </div>
       <div className="flex space-x-8">
-        <Button onClick={onConfirm}>Accept</Button>
+        <Button onClick={() => onConfirm(tags)}>Accept</Button>
         <Button variant="secondary" onClick={() => setIsEditing(!isEditing)}>
           {isEditing ? 'Done' : 'Modify Categories'}
         </Button>

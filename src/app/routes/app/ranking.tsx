@@ -3,19 +3,36 @@ import { useLocation } from 'react-router';
 
 import { Prism } from '@/components/background/prism';
 import { ContentLayout } from '@/components/layouts/content-layout';
+import { useGetScores } from '@/features/home/api/get-score';
 import AnimatedList from '@/features/ranking/components/animated-list';
 import { BusinessCategorizationPrompt } from '@/features/ranking/components/business-prompt';
 
 const RankingRoute = () => {
   const location = useLocation();
   const rankingData = location.state;
-  const [isValid, setIsValid] = useState(false);
+  const [showRanking, setShowRanking] = useState(false);
+
+  const getScoresMutation = useGetScores({
+    mutationConfig: {
+      onSuccess: () => {
+        setShowRanking(true);
+      },
+    },
+  });
+
+  const handleConfirm = (tags: string[]) => {
+    getScoresMutation.mutate({
+      data: {
+        tags: { categories: tags },
+        ebitda: rankingData.ebitda,
+      },
+    });
+  };
 
   if (!rankingData) return null;
 
   return (
     <ContentLayout title="Ranking">
-      {/* <Spotlight /> */}
       <div className="absolute inset-0 -z-10">
         <Prism
           animationType="3drotate"
@@ -30,15 +47,15 @@ const RankingRoute = () => {
         />
       </div>
       <div className="mx-4 my-8 max-w-5xl sm:mx-6 md:mx-8 lg:mx-12 xl:mx-16">
-        {!isValid ? (
+        {!showRanking ? (
           <BusinessCategorizationPrompt
             tagList={rankingData.tags}
-            onConfirm={() => setIsValid(true)}
+            onConfirm={handleConfirm}
           />
         ) : (
           <div className="bg-glass rounded-3xl p-6 shadow-sm backdrop-blur-[30px]">
             <AnimatedList
-              items={rankingData.businesses}
+              items={getScoresMutation.data?.Scores}
               onItemSelect={(item, index) => console.log(item, index)}
               showGradients={false}
               enableArrowNavigation={true}

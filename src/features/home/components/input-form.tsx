@@ -13,7 +13,6 @@ import {
 } from '@/components/ui/form/form';
 import { Input } from '@/components/ui/input';
 
-import { useGetScores } from '../api/get-score';
 import { useGetTags } from '../api/get-tags';
 
 export function InputForm() {
@@ -23,33 +22,15 @@ export function InputForm() {
     mutationConfig: {
       onSuccess: (data) => {
         const formData = form.getValues();
-        getScoresMutation.mutate({
-          data: {
-            tags: data.tags,
+        navigate('/ranking', {
+          state: {
+            tags: data.tags.categories,
             ebitda: formData.ebitda,
           },
         });
       },
       onError: (error) => {
         console.error('Error getting tags:', error);
-      },
-    },
-  });
-
-  const getScoresMutation = useGetScores({
-    mutationConfig: {
-      onSuccess: (data, variables) => {
-        const tags = variables.data.tags.categories;
-        navigate('/ranking', {
-          state: {
-            businesses: data.Scores,
-            tags: tags,
-            dealSize: data['Deal Size'],
-          },
-        });
-      },
-      onError: (error) => {
-        console.error('Error getting scores:', error);
       },
     },
   });
@@ -128,7 +109,7 @@ export function InputForm() {
         <Button
           type="submit"
           className="w-full rounded-full"
-          isLoading={getTagsMutation.isPending || getScoresMutation.isPending}
+          isLoading={getTagsMutation.isPending}
           isAnimated
         >
           Enviar
