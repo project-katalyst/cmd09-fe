@@ -4,10 +4,12 @@ import { env } from '@/config/env';
 
 import { networkDelay } from '../utils';
 
-import { rankingsHandlers } from './rankings';
+import { scoresHandlers } from './scores';
+import { tagsHandlers } from './tags';
 
 export const handlers = [
-  ...rankingsHandlers,
+  ...scoresHandlers,
+  ...tagsHandlers,
   http.get(`${env.API_URL}/healthcheck`, async () => {
     await networkDelay();
     return HttpResponse.json({ ok: true });

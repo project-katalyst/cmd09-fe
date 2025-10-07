@@ -52,11 +52,14 @@ const generateRanking = () => {
     ebitda: randNumber({ min: 100000, max: 10000000 }),
     tags: Array.from({ length: 5 }, () => randProductCategory()),
     businesses: Array.from({ length: 10 }, (_, i) => ({
-      name: shuffledNames[i],
-      description: shuffledDescriptions[i],
-      score: randNumber({ min: 70, max: 100 }), // Higher scores for better impression
-      url: randUrl(),
+      Nome: shuffledNames[i],
+      Resumo: shuffledDescriptions[i],
+      Score: randNumber({ min: 70, max: 100 }), // Higher scores for better impression
+      Site: randUrl(),
+      EBITDA: randNumber({ min: 100000, max: 10000000 }),
+      'Data do EBITDA': new Date().toISOString(),
     })),
+    dealSize: randNumber({ min: 1000000, max: 100000000 }),
     createdAt: Date.now(),
   };
 };

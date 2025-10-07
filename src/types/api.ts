@@ -12,10 +12,12 @@ export type Entity<T> = {
 } & BaseEntity;
 
 export type Business = {
-  name: string;
-  description: string;
-  score: number;
-  url: string;
+  Nome: string;
+  Resumo: string;
+  Score: number;
+  Site: string;
+  EBITDA: number;
+  'Data do EBITDA': string;
 };
 
 export type Ranking = {
@@ -23,6 +25,7 @@ export type Ranking = {
   url: string;
   ebitda: number;
   businesses: Business[];
+  dealSize: number;
   createdAt: number;
   tags: string[];
 };

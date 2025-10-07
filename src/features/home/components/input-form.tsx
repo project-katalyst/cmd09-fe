@@ -13,37 +13,70 @@ import {
 } from '@/components/ui/form/form';
 import { Input } from '@/components/ui/input';
 
-import {
-  createRankingInputSchema,
-  useCreateRanking,
-} from '../api/create-ranking';
+import { useGetScores } from '../api/get-score';
+import { useGetTags } from '../api/get-tags';
 
 export function InputForm() {
   const navigate = useNavigate();
 
-  const createRankingMutation = useCreateRanking({
+  const getTagsMutation = useGetTags({
     mutationConfig: {
       onSuccess: (data) => {
-        navigate('/ranking', { state: data });
+        const formData = form.getValues();
+        getScoresMutation.mutate({
+          data: {
+            tags: data.tags,
+            ebitda: formData.ebitda,
+          },
+        });
+      },
+      onError: (error) => {
+        console.error('Error getting tags:', error);
       },
     },
   });
 
-  const form = useForm<z.infer<typeof createRankingInputSchema>>({
-    resolver: zodResolver(createRankingInputSchema),
+  const getScoresMutation = useGetScores({
+    mutationConfig: {
+      onSuccess: (data, variables) => {
+        const tags = variables.data.tags.categories;
+        navigate('/ranking', {
+          state: {
+            businesses: data.Scores,
+            tags: tags,
+            dealSize: data['Deal Size'],
+          },
+        });
+      },
+      onError: (error) => {
+        console.error('Error getting scores:', error);
+      },
+    },
+  });
+
+  const formInputSchema = z.object({
+    url: z.url({ message: 'URL inválida' }),
+    ebitda: z
+      .number({ message: 'EBITDA inválido' })
+      .min(-10000000000, { message: 'Valor muito baixo' })
+      .max(100000000000, { message: 'Valor muito alto' }),
+  });
+
+  const form = useForm<z.infer<typeof formInputSchema>>({
+    resolver: zodResolver(formInputSchema),
     defaultValues: {
       url: '',
       ebitda: undefined,
     },
   });
 
-  function onSubmit(data: z.infer<typeof createRankingInputSchema>) {
-    createRankingMutation.mutate({ data });
+  function onSubmit(data: z.infer<typeof formInputSchema>) {
+    getTagsMutation.mutate({
+      url: data.url,
+    });
   }
 
-  function onError(
-    errors: FieldErrors<z.infer<typeof createRankingInputSchema>>,
-  ) {
+  function onError(errors: FieldErrors<z.infer<typeof formInputSchema>>) {
     if (errors.url) {
       toast.error(errors.url.message || 'URL inválida', {
         id: 'url-error',
@@ -95,7 +128,7 @@ export function InputForm() {
         <Button
           type="submit"
           className="w-full rounded-full"
-          isLoading={createRankingMutation.isPending}
+          isLoading={getTagsMutation.isPending || getScoresMutation.isPending}
           isAnimated
         >
           Enviar

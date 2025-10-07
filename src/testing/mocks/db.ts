@@ -8,6 +8,7 @@ const models = {
     ebitda: Number,
     businesses: Array,
     tags: Array,
+    dealSize: Number,
     createdAt: Date,
   },
 };

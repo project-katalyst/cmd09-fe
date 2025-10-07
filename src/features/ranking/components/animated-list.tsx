@@ -73,7 +73,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
   const [bottomGradientOpacity, setBottomGradientOpacity] = useState<number>(1);
 
   const sortedItems = useMemo(() => {
-    return [...items].sort((a, b) => b.score - a.score);
+    return [...items].sort((a, b) => b.Score - a.Score);
   }, [items]);
 
   const handleScroll = (e: UIEvent<HTMLDivElement>) => {
@@ -166,7 +166,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
               <div className="flex items-center justify-between sm:flex-col sm:justify-center sm:gap-4">
                 <div className="mb-2 flex shrink-0 items-center justify-center sm:mb-0">
                   <ScoreVisualization
-                    score={item.score}
+                    score={item.Score}
                     variant="circular"
                     size="md"
                     className="sm:size-20"
@@ -175,15 +175,15 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
               </div>
               <div className="flex flex-1 flex-col justify-center gap-4 sm:gap-3">
                 <h3 className="m-0 text-2xl font-bold leading-tight text-primary">
-                  {item.name}
+                  {item.Nome}
                 </h3>
                 <p className="m-0 text-base leading-relaxed text-muted-foreground">
-                  {item.description}
+                  {item.Resumo}
                 </p>
               </div>
               <div className="flex items-center">
                 <a
-                  href={item.url}
+                  href={item.Site}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
