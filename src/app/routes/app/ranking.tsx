@@ -51,6 +51,7 @@ const RankingRoute = () => {
           <BusinessCategorizationPrompt
             initialTags={rankingData.tags}
             onConfirm={handleConfirm}
+            isLoading={getScoresMutation.isPending}
           />
         ) : (
           <div className="bg-glass rounded-3xl p-6 shadow-sm backdrop-blur-[30px]">

@@ -8,11 +8,13 @@ import { Button } from '@/components/ui/button';
 interface BusinessCategorizationPromptProps {
   initialTags: Record<string, string[]>;
   onConfirm: (tags: Record<string, string[]>) => void;
+  isLoading?: boolean;
 }
 
 export const BusinessCategorizationPrompt = ({
   initialTags,
   onConfirm,
+  isLoading,
 }: BusinessCategorizationPromptProps) => {
   const [isEditing, setIsEditing] = useState(false);
   const [tags, setTags] = useState(initialTags);
@@ -97,7 +99,9 @@ export const BusinessCategorizationPrompt = ({
         </AnimatePresence>
       </div>
       <div className="flex space-x-8">
-        <Button onClick={() => onConfirm(tags)}>Accept</Button>
+        <Button onClick={() => onConfirm(tags)} isLoading={isLoading}>
+          Accept
+        </Button>
         <Button variant="secondary" onClick={() => setIsEditing(!isEditing)}>
           {isEditing ? 'Done' : 'Modify Categories'}
         </Button>
