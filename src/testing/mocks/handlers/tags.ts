@@ -10,10 +10,16 @@ export const tagsHandlers = [
     await networkDelay();
 
     try {
+      const tags: Record<string, string[]> = {};
+      const numTags = 5;
+      for (let i = 1; i <= numTags; i++) {
+        const numCategories = 5;
+        tags[`tag${i}`] = Array.from({ length: numCategories }, () =>
+          randProductCategory(),
+        );
+      }
       return HttpResponse.json({
-        tags: {
-          categories: Array.from({ length: 5 }, () => randProductCategory()),
-        },
+        tags: tags,
         summary: randSentence(),
       });
     } catch (error: any) {

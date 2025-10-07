@@ -24,7 +24,7 @@ export function InputForm() {
         const formData = form.getValues();
         navigate('/ranking', {
           state: {
-            tags: data.tags.categories,
+            tags: data.tags,
             ebitda: formData.ebitda,
           },
         });

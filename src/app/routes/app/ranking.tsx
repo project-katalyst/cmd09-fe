@@ -20,10 +20,10 @@ const RankingRoute = () => {
     },
   });
 
-  const handleConfirm = (tags: string[]) => {
+  const handleConfirm = (tags: Record<string, string[]>) => {
     getScoresMutation.mutate({
       data: {
-        tags: { categories: tags },
+        tags: tags,
         ebitda: rankingData.ebitda,
       },
     });
@@ -49,7 +49,7 @@ const RankingRoute = () => {
       <div className="mx-4 my-8 max-w-5xl sm:mx-6 md:mx-8 lg:mx-12 xl:mx-16">
         {!showRanking ? (
           <BusinessCategorizationPrompt
-            tagList={rankingData.tags}
+            initialTags={rankingData.tags}
             onConfirm={handleConfirm}
           />
         ) : (

@@ -1,25 +1,50 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { Badge } from '@/components/ui/badge';
 import { XIcon } from '@/components/ui/badge/x-icon';
 import { Button } from '@/components/ui/button';
 
 interface BusinessCategorizationPromptProps {
-  tagList: string[];
-  onConfirm: (tags: string[]) => void;
+  initialTags: Record<string, string[]>;
+  onConfirm: (tags: Record<string, string[]>) => void;
 }
 
 export const BusinessCategorizationPrompt = ({
-  tagList,
+  initialTags,
   onConfirm,
 }: BusinessCategorizationPromptProps) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [tags, setTags] = useState(tagList);
+  const [tags, setTags] = useState(initialTags);
 
-  const handleRemoveTag = (tagToRemove: string) => {
-    if (tags.length > 1) {
-      setTags(tags.filter((tag) => tag !== tagToRemove));
+  const sentences = useMemo(() => {
+    const values = Object.values(tags);
+    if (values.length === 0) {
+      return [];
+    }
+    const maxLength = Math.max(...values.map((arr) => arr.length));
+    const result = [];
+    for (let i = 0; i < maxLength; i++) {
+      const sentence = values.map((arr) => arr[i] || '').join(' : ');
+      result.push(sentence);
+    }
+    return result;
+  }, [tags]);
+
+  const handleRemoveSentence = (indexToRemove: number) => {
+    const newTags = JSON.parse(JSON.stringify(tags));
+    let totalTags = 0;
+    for (const key in newTags) {
+      totalTags += newTags[key].length;
+    }
+
+    if (totalTags > 1) {
+      for (const key in newTags) {
+        if (newTags[key].length > indexToRemove) {
+          newTags[key].splice(indexToRemove, 1);
+        }
+      }
+      setTags(newTags);
     }
   };
 
@@ -36,9 +61,9 @@ export const BusinessCategorizationPrompt = ({
       </div>
       <div className="my-8 flex min-h-[60px] flex-wrap justify-center gap-4">
         <AnimatePresence>
-          {tags.map((tag: string) => (
+          {sentences.map((sentence, index) => (
             <motion.div
-              key={tag}
+              key={sentence}
               layout
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -53,11 +78,11 @@ export const BusinessCategorizationPrompt = ({
                 variant="secondary"
                 className="relative px-6 py-3 text-base"
               >
-                {tag}
+                {sentence}
                 <button
-                  onClick={() => handleRemoveTag(tag)}
-                  disabled={tags.length === 1}
-                  aria-label={`Remove ${tag}`}
+                  onClick={() => handleRemoveSentence(index)}
+                  disabled={Object.values(tags).flat().length < 2}
+                  aria-label={`Remove ${sentence}`}
                   className={`absolute -right-2 -top-2 transition-all duration-300 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 ${
                     isEditing ? 'scale-100 opacity-100' : 'scale-50 opacity-0'
                   }`}
