@@ -46,7 +46,7 @@ const RankingRoute = () => {
           glow={0.5}
         />
       </div>
-      <div className="mx-4 my-8 max-w-5xl sm:mx-6 md:mx-8 lg:mx-12 xl:mx-16">
+      <div className="mx-4 my-8 max-w-7xl sm:mx-6 md:mx-8 lg:mx-12 xl:mx-16">
         {!showRanking ? (
           <BusinessCategorizationPrompt
             initialTags={rankingData.tags}
