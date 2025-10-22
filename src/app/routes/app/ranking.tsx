@@ -1,35 +1,53 @@
-import { useState } from 'react';
-import { useLocation } from 'react-router';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 import { Prism } from '@/components/background/prism';
 import { ContentLayout } from '@/components/layouts/content-layout';
+import { paths } from '@/config/paths';
 import { useGetScores } from '@/features/home/api/get-score';
 import AnimatedList from '@/features/ranking/components/animated-list';
 import { BusinessCategorizationPrompt } from '@/features/ranking/components/business-prompt';
 
 const RankingRoute = () => {
-  const location = useLocation();
-  const rankingData = location.state;
-  const [showRanking, setShowRanking] = useState(false);
+  const navigate = useNavigate();
+
+  const storedInput = sessionStorage.getItem('rankingInput');
+  const rankingInput = storedInput ? JSON.parse(storedInput) : null;
+
+  const cachedResult = JSON.parse(
+    sessionStorage.getItem('rankingResult') || 'null',
+  );
+
+  const [showRanking, setShowRanking] = useState(!!cachedResult);
 
   const getScoresMutation = useGetScores({
     mutationConfig: {
-      onSuccess: () => {
+      onSuccess: (data) => {
+        sessionStorage.setItem('rankingResult', JSON.stringify(data));
         setShowRanking(true);
       },
     },
   });
 
   const handleConfirm = (tags: Record<string, string[]>) => {
+    if (!rankingInput) return;
     getScoresMutation.mutate({
       data: {
         tags: tags,
-        ebitda: rankingData.ebitda,
+        ebitda: rankingInput.ebitda,
       },
     });
   };
 
-  if (!rankingData) return null;
+  useEffect(() => {
+    if (!rankingInput) {
+      navigate(paths.home.getHref(), { replace: true });
+    }
+  }, [rankingInput, navigate]);
+
+  if (!rankingInput) return null;
+
+  const rankingDataToShow = getScoresMutation.data || cachedResult;
 
   return (
     <ContentLayout title="Ranking">
@@ -49,14 +67,14 @@ const RankingRoute = () => {
       <div className="mx-4 my-8 max-w-7xl sm:mx-6 md:mx-8 lg:mx-12 xl:mx-16">
         {!showRanking ? (
           <BusinessCategorizationPrompt
-            initialTags={rankingData.tags}
+            initialTags={rankingInput.tags}
             onConfirm={handleConfirm}
             isLoading={getScoresMutation.isPending}
           />
         ) : (
           <div className="bg-glass rounded-3xl p-6 shadow-sm backdrop-blur-[30px]">
             <AnimatedList
-              items={getScoresMutation.data?.Scores}
+              items={rankingDataToShow?.Scores}
               onItemSelect={(item, index) => console.log(item, index)}
               showGradients={false}
               enableArrowNavigation={true}

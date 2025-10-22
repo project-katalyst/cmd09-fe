@@ -22,12 +22,15 @@ export function InputForm() {
     mutationConfig: {
       onSuccess: (data) => {
         const formData = form.getValues();
-        navigate('/ranking', {
-          state: {
-            tags: data.tags,
-            ebitda: formData.ebitda,
-          },
-        });
+        const rankingInput = {
+          tags: data.tags,
+          ebitda: formData.ebitda,
+        };
+
+        sessionStorage.setItem('rankingInput', JSON.stringify(rankingInput));
+        sessionStorage.removeItem('rankingResult');
+
+        navigate('/ranking');
       },
       onError: (error) => {
         console.error('Error getting tags:', error);
