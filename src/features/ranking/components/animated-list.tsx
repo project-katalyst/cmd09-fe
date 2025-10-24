@@ -11,8 +11,7 @@ import React, {
 
 import { Button } from '@/components/ui/button';
 import { ScoreVisualization } from '@/components/ui/score-visualization';
-import { Spinner } from '@/components/ui/spinner';
-import { cn, downloadJsonAsFile } from '@/lib/utils';
+import { cn, downloadFile } from '@/lib/utils';
 import { Business } from '@/types/api';
 
 import { useGetFinancials } from '../api/get-financials';
@@ -60,6 +59,33 @@ interface AnimatedListProps {
   initialSelectedIndex?: number;
 }
 
+const convertFinancialsToCsv = (
+  data: Record<string, (string | number)[]>,
+): string => {
+  if (!data || Object.keys(data).length === 0) return '';
+
+  const headers = Object.keys(data);
+  const headerRow = headers.join(',');
+
+  const numRows = data[headers[0]]?.length || 0;
+  if (numRows === 0) return headerRow;
+
+  const dataRows: string[] = [];
+
+  for (let i = 0; i < numRows; i++) {
+    const row = headers
+      .map((header) => {
+        const value = data[header][i];
+        const strValue = String(value);
+        return strValue.includes(',') ? `"${strValue}"` : strValue;
+      })
+      .join(',');
+    dataRows.push(row);
+  }
+
+  return [headerRow, ...dataRows].join('\n');
+};
+
 const AnimatedList: React.FC<AnimatedListProps> = ({
   items = [],
   onItemSelect,
@@ -80,9 +106,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
   const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>(
     {},
   );
-  const [loadingFinancials, setLoadingFinancials] = useState<string | null>(
-    null,
-  );
+  const [, setLoadingFinancials] = useState<string | null>(null);
 
   const getFinancialsMutation = useGetFinancials({
     mutationConfig: {
@@ -91,9 +115,12 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
 
         if (data.financials && Object.keys(data.financials).length > 0) {
           const date = new Date().toISOString().split('T')[0];
-          downloadJsonAsFile(
-            data.financials,
-            `financials_${ticker}_${date}.json`,
+          const csvContent = convertFinancialsToCsv(data.financials);
+
+          downloadFile(
+            csvContent,
+            `financials_${ticker}_${date}.csv`,
+            'text/csv;charset=utf-8;',
           );
         } else {
           console.error(
@@ -230,7 +257,6 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
         {sortedItems.map((item, index) => {
           const isExpanded = !!expandedItems[index];
           const showButton = !!needsMore[index] || isExpanded;
-          const isDownloading = loadingFinancials === item.Ticker;
 
           return (
             <AnimatedItem
@@ -311,7 +337,6 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
                   <Button
                     variant="outline"
                     className="w-full"
-                    disabled={isDownloading}
                     onClick={(e) => {
                       e.stopPropagation();
                       setLoadingFinancials(item.Ticker);
@@ -323,11 +348,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
                       });
                     }}
                   >
-                    {isDownloading ? (
-                      <Spinner size="sm" className="text-current" />
-                    ) : (
-                      'Download'
-                    )}
+                    Download
                   </Button>
                 </div>
               </div>

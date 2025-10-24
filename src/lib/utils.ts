@@ -6,14 +6,18 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /**
- * Creates a JSON file from data and triggers a browser download.
- * @param data - The data to be stringified and downloaded.
+ * Creates a file from a string and triggers a browser download.
+ * @param content - The string content for the file.
  * @param filename - The name for the downloaded file.
+ * @param mimeType - The MIME type for the file (e.g., 'application/json', 'text/csv').
  */
-export const downloadJsonAsFile = (data: unknown, filename: string) => {
+export const downloadFile = (
+  content: string,
+  filename: string,
+  mimeType: string,
+) => {
   try {
-    const json = JSON.stringify(data, null, 2);
-    const blob = new Blob([json], { type: 'application/json' });
+    const blob = new Blob([content], { type: mimeType });
     const href = URL.createObjectURL(blob);
 
     // Create a temporary link element
@@ -29,6 +33,6 @@ export const downloadJsonAsFile = (data: unknown, filename: string) => {
     document.body.removeChild(link);
     URL.revokeObjectURL(href);
   } catch (error) {
-    console.error('Error downloading JSON file:', error);
+    console.error('Error downloading file:', error);
   }
 };
