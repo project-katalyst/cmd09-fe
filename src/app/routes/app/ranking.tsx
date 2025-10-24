@@ -75,7 +75,9 @@ const RankingRoute = () => {
           <div className="bg-glass rounded-3xl p-6 shadow-sm backdrop-blur-[30px]">
             <AnimatedList
               items={rankingDataToShow?.Scores}
-              onItemSelect={(item, index) => console.log(item, index)}
+              onItemSelect={(item) =>
+                window.open(item.Site, '_blank', 'noopener,noreferrer')
+              }
               showGradients={false}
               enableArrowNavigation={true}
               displayScrollbar={true}

@@ -11,8 +11,11 @@ import React, {
 
 import { Button } from '@/components/ui/button';
 import { ScoreVisualization } from '@/components/ui/score-visualization';
-import { cn } from '@/lib/utils';
+import { Spinner } from '@/components/ui/spinner';
+import { cn, downloadJsonAsFile } from '@/lib/utils';
 import { Business } from '@/types/api';
+
+import { useGetFinancials } from '../api/get-financials';
 
 interface AnimatedItemProps {
   children: ReactNode;
@@ -77,6 +80,42 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
   const [expandedItems, setExpandedItems] = useState<Record<number, boolean>>(
     {},
   );
+  const [loadingFinancials, setLoadingFinancials] = useState<string | null>(
+    null,
+  );
+
+  const getFinancialsMutation = useGetFinancials({
+    mutationConfig: {
+      onSuccess: (data, variables) => {
+        const ticker = variables.data.ticker;
+
+        if (data.financials && Object.keys(data.financials).length > 0) {
+          const date = new Date().toISOString().split('T')[0];
+          downloadJsonAsFile(
+            data.financials,
+            `financials_${ticker}_${date}.json`,
+          );
+        } else {
+          console.error(
+            'Received empty financials data from API for ticker:',
+            ticker,
+            data,
+          );
+          alert(
+            `Failed to download: No financial data returned from the server for ${ticker}.`,
+          );
+        }
+        setLoadingFinancials(null);
+      },
+      onError: (error) => {
+        console.error('Failed to download financials:', error);
+        alert(
+          'An error occurred while trying to download the financial report.',
+        );
+        setLoadingFinancials(null);
+      },
+    },
+  });
 
   const toggleExpand = (e: React.MouseEvent, index: number) => {
     e.stopPropagation();
@@ -191,6 +230,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
         {sortedItems.map((item, index) => {
           const isExpanded = !!expandedItems[index];
           const showButton = !!needsMore[index] || isExpanded;
+          const isDownloading = loadingFinancials === item.Ticker;
 
           return (
             <AnimatedItem
@@ -267,15 +307,28 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
                     </button>
                   )}
                 </div>
-                <div className="flex items-center">
-                  <a
-                    href={item.Site}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => e.stopPropagation()}
+                <div className="flex flex-col items-center justify-center gap-2">
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    disabled={isDownloading}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setLoadingFinancials(item.Ticker);
+                      getFinancialsMutation.mutate({
+                        data: {
+                          ticker: item.Ticker,
+                          data: item['Data do EBITDA'],
+                        },
+                      });
+                    }}
                   >
-                    <Button variant="outline">Visitar</Button>
-                  </a>
+                    {isDownloading ? (
+                      <Spinner size="sm" className="text-current" />
+                    ) : (
+                      'Download'
+                    )}
+                  </Button>
                 </div>
               </div>
             </AnimatedItem>

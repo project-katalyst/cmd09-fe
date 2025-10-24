@@ -16,6 +16,7 @@ export type Business = {
   Resumo: string;
   Score: number;
   Site: string;
+  Ticker: string;
   EBITDA: number;
   'Data do EBITDA': string;
 };
