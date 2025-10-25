@@ -73,7 +73,7 @@ const RankingRoute = () => {
 
   return (
     <ContentLayout title="Ranking">
-      <div className="absolute inset-0 -z-10">
+      <div className="bg-glass absolute inset-0 -z-10">
         <Prism
           animationType="3drotate"
           timeScale={0.5}
@@ -111,7 +111,7 @@ const RankingRoute = () => {
               animate={variants.animate}
               exit={variants.exit}
               transition={variants.transition}
-              className="bg-glass mx-auto flex min-h-[400px] flex-col items-center justify-center gap-8 rounded-3xl p-8 text-center shadow-sm backdrop-blur-[30px]"
+              className="mx-auto flex min-h-[400px] flex-col items-center justify-center gap-8 rounded-3xl text-center"
             >
               {rankingDataToShow?.['Deal Size'] ? (
                 <motion.div
@@ -150,7 +150,7 @@ const RankingRoute = () => {
               exit={variants.exit}
               transition={variants.transition}
             >
-              <div className="bg-glass rounded-3xl p-6 shadow-sm backdrop-blur-[30px]">
+              <div className="rounded-3xl p-6 shadow-sm">
                 <AnimatedList
                   items={rankingDataToShow.Scores}
                   onItemSelect={(item) =>

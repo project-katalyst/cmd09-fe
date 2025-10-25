@@ -53,7 +53,7 @@ export const BusinessCategorizationPrompt = ({
   };
 
   return (
-    <div className="bg-glass mx-auto flex flex-col items-center gap-4 rounded-3xl p-8 text-center shadow-sm backdrop-blur-[30px]">
+    <div className="mx-auto flex flex-col items-center gap-4 p-8 text-center">
       <div className="flex flex-col items-center gap-8">
         <h2 className="text-h1 text-center font-bold tracking-tight">
           Confirme o ramo da sua empresa
@@ -105,10 +105,10 @@ export const BusinessCategorizationPrompt = ({
       </div>
       <div className="flex space-x-8">
         <Button onClick={() => onConfirm(tags)} isLoading={isLoading}>
-          Accept
+          Aceitar
         </Button>
         <Button variant="secondary" onClick={() => setIsEditing(!isEditing)}>
-          {isEditing ? 'Done' : 'Modify Categories'}
+          {isEditing ? 'Salvar' : 'Modificar Categorias'}
         </Button>
       </div>
     </div>
