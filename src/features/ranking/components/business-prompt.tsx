@@ -84,7 +84,7 @@ export const BusinessCategorizationPrompt = ({
               >
                 <Badge
                   variant="secondary"
-                  className="relative whitespace-normal px-6 py-3 text-base"
+                  className="relative whitespace-normal text-base"
                 >
                   {sentence}
                   <button

@@ -76,7 +76,7 @@ export function InputForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit, onError)}
-        className="space-y-6"
+        className="space-y-4"
       >
         <FormField
           control={form.control}

@@ -1,4 +1,5 @@
 import { motion, useInView } from 'framer-motion';
+import { Download } from 'lucide-react';
 import React, {
   useRef,
   useState,
@@ -348,7 +349,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
                       });
                     }}
                   >
-                    Download
+                    <Download />
                   </Button>
                 </div>
               </div>
