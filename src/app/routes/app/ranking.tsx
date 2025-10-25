@@ -114,23 +114,18 @@ const RankingRoute = () => {
               className="mx-auto flex min-h-[400px] flex-col items-center justify-center gap-8 rounded-3xl text-center"
             >
               {rankingDataToShow?.['Deal Size'] ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.5, duration: 0.5 }}
-                  className="flex w-full flex-col items-center"
-                >
-                  <p className="text-h1 text-balance font-bold tracking-tight">
+                <div className="flex flex-col items-center">
+                  <p className="text-h1 text-balance tracking-tight">
                     Segundo nossas estimativas, a sua empresa deve ser vendida
                     por aproximadamente:
                   </p>
-                  <p className="text-h1 mt-8 font-bold text-primary">
+                  <p className="text-h1 bg-glass mt-8 w-fit rounded-lg px-6 py-3 font-bold text-primary">
                     {formatCurrency(rankingDataToShow['Deal Size'])}
                   </p>
                   <Button onClick={() => setStep('ranking')} className="mt-10">
                     Ver Ranking
                   </Button>
-                </motion.div>
+                </div>
               ) : (
                 <>
                   <h2 className="text-h1 font-bold tracking-tight">

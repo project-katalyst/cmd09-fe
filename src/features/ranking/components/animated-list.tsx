@@ -274,7 +274,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
             >
               <div
                 className={cn(
-                  'bg-card2 flex flex-col gap-6 rounded-3xl p-8 shadow-sm transition-all duration-300 ease-in-out sm:flex-row sm:gap-8',
+                  'bg-glass flex flex-col gap-6 rounded-3xl p-8 shadow-sm transition-all duration-300 ease-in-out sm:flex-row sm:gap-8',
                   !isExpanded ? 'sm:h-64' : 'h-auto',
                 )}
               >
