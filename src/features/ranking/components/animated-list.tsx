@@ -154,7 +154,7 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
   };
 
   const sortedItems = useMemo(() => {
-    return [...items].sort((a, b) => b.Score - a.Score);
+    return [...items].sort((a, b) => b.Score - a.Score).slice(0, 15);
   }, [items]);
 
   const handleScroll = (e: UIEvent<HTMLDivElement>) => {
@@ -274,7 +274,8 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
             >
               <div
                 className={cn(
-                  'bg-glass flex flex-col gap-6 rounded-3xl p-8 shadow-sm transition-all duration-300 ease-in-out sm:flex-row sm:gap-8',
+                  item['Not Advised'] ? 'bg-glass-red' : 'bg-glass',
+                  'flex flex-col gap-6 rounded-3xl p-8 shadow-sm transition-all duration-300 ease-in-out sm:flex-row sm:gap-8',
                   !isExpanded ? 'sm:h-64' : 'h-auto',
                 )}
               >
@@ -289,9 +290,16 @@ const AnimatedList: React.FC<AnimatedListProps> = ({
                   </div>
                 </div>
                 <div className="flex flex-1 flex-col justify-center gap-3">
-                  <h3 className="m-0 text-2xl font-bold leading-tight text-primary">
-                    {item.Nome}
-                  </h3>
+                  <div className="flex items-center justify-between">
+                    <h3 className="m-0 text-2xl font-bold leading-tight text-primary">
+                      {item.Nome}
+                    </h3>
+                    {item['Not Advised'] && (
+                      <span className="rounded-full bg-red-500/20 px-3 py-1 text-sm font-medium text-red-200">
+                        Net Leverage: {item['Net Leverage'].toFixed(1)}x
+                      </span>
+                    )}
+                  </div>
                   <p
                     ref={(el) => {
                       if (el) summaryRefs.current.set(index, el);

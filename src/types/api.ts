@@ -19,6 +19,8 @@ export type Business = {
   Ticker: string;
   EBITDA: number;
   'Data do EBITDA': string;
+  'Net Leverage': number;
+  'Not Advised': boolean;
 };
 
 export type Ranking = {

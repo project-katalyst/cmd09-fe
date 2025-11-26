@@ -17,6 +17,16 @@ const customBusinessNames = [
   'Laboratórios BioSynth',
   'Sistemas Aura',
   'Energia Helios',
+  'Vanguard Systems',
+  'Omega Networks',
+  'Prime Solutions',
+  'Horizon Tech',
+  'Vertex Innovations',
+  'Global Dynamics',
+  'Future Corp',
+  'Stellar Industries',
+  'Nova Group',
+  'Echo Enterprises',
 ];
 
 const customDescriptions = [
@@ -30,6 +40,16 @@ const customDescriptions = [
   'A Dinâmicas PróximaGeração oferece automação de fluxo de trabalho inteligente para a empresa moderna. Nossa plataforma otimiza processos de negócios, elimina gargalos e libera o potencial humano, resultando em um aumento significativo de produtividade e eficiência operacional.',
   'Considere a Apex Digital seu parceiro de confiança na jornada da transformação digital. Oferecemos planejamento de recursos empresariais (ERP) e consultoria estratégica para modernizar sua infraestrutura, alinhar suas equipes e posicionar sua empresa para o sucesso a longo prazo.',
   'A Inovatech está conectando o mundo de forma segura e descentralizada. Nossos protocolos de rede e comunicação inovadores garantem a soberania dos dados e a privacidade do usuário, construindo a base para a próxima geração da internet e das interações digitais.',
+  'A Vanguard Systems oferece soluções de segurança avançada para infraestruturas críticas, garantindo a continuidade dos negócios em ambientes hostis.',
+  'A Omega Networks conecta o mundo com infraestrutura de rede de alta velocidade, permitindo comunicação instantânea e confiável em escala global.',
+  'A Prime Solutions fornece consultoria de gestão de alto nível, ajudando empresas a otimizar processos e alcançar excelência operacional.',
+  'A Horizon Tech está na vanguarda da exploração espacial, desenvolvendo tecnologias para a próxima geração de satélites e veículos orbitais.',
+  'A Vertex Innovations cria soluções de software personalizadas para desafios complexos, impulsionando a inovação em diversos setores da indústria.',
+  'A Global Dynamics é líder em logística e cadeia de suprimentos, oferecendo soluções integradas para movimentação de mercadorias em todo o mundo.',
+  'A Future Corp investe em tecnologias emergentes, incubando startups e acelerando o desenvolvimento de produtos revolucionários.',
+  'A Stellar Industries fabrica componentes de precisão para a indústria aeroespacial, garantindo qualidade e confiabilidade em missões críticas.',
+  'A Nova Group desenvolve projetos imobiliários sustentáveis, criando comunidades vibrantes e ecologicamente responsáveis.',
+  'A Echo Enterprises oferece serviços de comunicação e marketing digital, ajudando marcas a se conectarem com seu público de forma autêntica e impactante.',
 ];
 
 // Helper function to shuffle an array
@@ -51,13 +71,15 @@ const generateRanking = () => {
     url: randUrl(),
     ebitda: randNumber({ min: 100000, max: 10000000 }),
     tags: Array.from({ length: 5 }, () => randProductCategory()),
-    businesses: Array.from({ length: 10 }, (_, i) => ({
+    businesses: Array.from({ length: 20 }, (_, i) => ({
       Nome: shuffledNames[i],
       Resumo: shuffledDescriptions[i],
       Score: randNumber({ min: 70, max: 100 }), // Higher scores for better impression
       Site: randUrl(),
       EBITDA: randNumber({ min: 100000, max: 10000000 }),
       'Data do EBITDA': new Date().toISOString(),
+      'Net Leverage': randNumber({ min: 0, max: 10, fraction: 1 }),
+      'Not Advised': Math.random() < 0.2, // 20% chance of being not advised
     })),
     dealSize: randNumber({ min: 1000000, max: 100000000 }),
     createdAt: Date.now(),
