@@ -20,7 +20,8 @@ const scoreVisualizationVariants = cva(
 );
 
 export interface ScoreVisualizationProps
-  extends React.HTMLAttributes<HTMLDivElement>,
+  extends
+    React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof scoreVisualizationVariants> {
   score: number;
   variant: 'circular';
